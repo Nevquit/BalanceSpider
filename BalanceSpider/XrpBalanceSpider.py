@@ -1,5 +1,4 @@
 import json
-
 import requests
 import traceback
 import json
@@ -10,8 +9,11 @@ class XrpBalanceSpider:
         '''
         self.print_flag = print_flag
         #need update
-        with open('./xrp_spider _pool.json','r') as f:
-            pool = json.load(f)
+        pool = {
+                "api": {
+                        "XRP": "https://api.xrpscan.com/api/v1/account/"
+                    }
+                }
         self.xrpApiPools = pool['api']
 
     def pprint(self,*args,**kwargs):
@@ -37,5 +39,8 @@ class XrpBalanceSpider:
 
 
 if __name__ == '__main__':
-    bb = XrpBalanceSpider(True)
-    print(bb.getXRPBalance('rpzp36VUHCzYeTRuuVYGkzzBPAs2p8XK2A'))
+    # bb = XrpBalanceSpider(True)
+    # print(bb.getXRPBalance('rpzp36VUHCzYeTRuuVYGkzzBPAs2p8XK2A'))
+    with open('../BalanceSpider/xrp_spider_pool.json', 'r') as f:
+        pool = json.load(f)
+    print(pool)

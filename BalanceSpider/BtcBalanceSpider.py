@@ -10,8 +10,36 @@ class BtcBalanceSpider:
         :param print_flag:
         '''
         self.print_flag = print_flag
-        with open('./btc_spider _pool.json','r') as f:
-            pool = json.load(f)
+        pool = {
+                "url": {
+                    "BTC": {
+                        "https://www.blockchain.com/btc/address/": "/html/body/div[1]/div[3]/div[2]/div/div/div[2]/div/div[1]/div[2]/div/div[6]/div[2]/span",
+                        "https://explorer.btc.com/btc/address/": "/html/body/div[2]/div[1]/div[3]/div[3]/div[1]/div/div[2]/div[2]/span"
+                    },
+                    "LTC": {
+                        "https://litecoinblockexplorer.net/address/": "/html/body/main/div/div[1]/div/div/div/div/div[4]/p[2]",
+                        "https://explorer.btc.com/ltc/address/": "/html/body/div[2]/div[1]/div[3]/div[3]/div[1]/div/div[1]/div[2]/span"
+                    },
+                    "DOGE": {
+                        "https://dogeblocks.com/address/": "/html/body/main/div/div[1]/div/div/div/div/div[4]/p[2]",
+                        "https://explorer.doge.zelcore.io/address/": "/html/body/div[2]/div/div[1]/div[1]/div[1]/div[2]/div/div[1]/div[4]/div[2]/span"
+                    }
+                },
+                "api": {
+                    "BTC": {
+                        "api.blockcypher": "https://api.blockcypher.com/v1/btc/main/addrs/{}/balance",
+                        "chain.so": "https://chain.so/api/v2/get_address_balance/btc/{}"
+                    },
+                    "LTC": {
+                        "chain.so": "https://chain.so/api/v2/get_address_balance/LTC/{}",
+                        "api.blockcypher": "https://api.blockcypher.com/v1/ltc/main/addrs/{}/balance"
+                    },
+                    "DOGE": {
+                        "chain.so": "https://chain.so/api/v2/get_address_balance/DOGE/{}",
+                        "api.blockcypher": "https://api.blockcypher.com/v1/doge/main/addrs/{}/balance"
+                    }
+                }
+            }
         self.btcURLPools = pool['url']
         self.btcApiPools = pool['api']
 
