@@ -1,16 +1,19 @@
+import json
+
 import requests
 from lxml import etree
 import traceback
-
+import json
 class BtcBalanceSpider:
-    def __init__(self, print_flag):
+    def __init__(self, print_flag=False):
         '''
         :param print_flag:
         '''
         self.print_flag = print_flag
-        #need update
-        self.btcURLPools = requests.get('https://raw.githubusercontent.com/Nevquit/configW/main/btc_balance_spider_url_pool.json').json()
-        self.btcApiPools = requests.get('https://raw.githubusercontent.com/Nevquit/configW/main/btc_balance_api.json').json()
+        with open('./btc_spider _pool.json','r') as f:
+            pool = json.load(f)
+        self.btcURLPools = pool['url']
+        self.btcApiPools = pool['api']
 
     def pprint(self,*args,**kwargs):
         if self.print_flag :
@@ -37,9 +40,9 @@ class BtcBalanceSpider:
         :param address:
         :return: balance pool, unit btc
         '''
-        url_pool = self.btcApiPools
         balancePool = []
         try:
+            url_pool = self.btcApiPools
             if chain == 'BTC':
                 for name,url in url_pool[chain].items():
                     if name == 'blockchain.info':
@@ -96,9 +99,9 @@ class BtcBalanceSpider:
 
         #Get balance from html
         # print('Get balance from html')
-        # balance_page = self._getBTCBalanceViaPage(chain,address)
-        # if balance_page:
-        #     balancePool.extend(balance_page)
+        balance_page = self._getBTCBalanceViaPage(chain,address)
+        if balance_page:
+            balancePool.extend(balance_page)
 
         #Get balance from third api
         # print('Get balance from third api')

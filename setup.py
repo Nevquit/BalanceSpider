@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="BalanceSpider",
-    version="0.0.1",
+    version="0.0.5",
     author="vSir",
     author_email="weiguo341@gmail.com",
     description="simple tool",
@@ -19,6 +19,6 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     install_requires=[
-    'lxml==4.0.5','requests'
+    'lxml==4.5.0','requests'
     ]
 )

@@ -1,14 +1,18 @@
+import json
+
 import requests
 import traceback
-
+import json
 class XrpBalanceSpider:
-    def __init__(self, print_flag):
+    def __init__(self, print_flag=False):
         '''
         :param print_flag:
         '''
         self.print_flag = print_flag
         #need update
-        self.xrpApiPools = requests.get('https://raw.githubusercontent.com/Nevquit/configW/main/xrp_balance_api.json').json()
+        with open('./xrp_spider _pool.json','r') as f:
+            pool = json.load(f)
+        self.xrpApiPools = pool['api']
 
     def pprint(self,*args,**kwargs):
         if self.print_flag :
